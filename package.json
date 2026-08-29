@@ -1,0 +1,19 @@
+{
+  "name": "dsh-desktop-dev",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DeepSeek Harness agent preset: Windows full-stack desktop development team",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "mount": "node scripts/harness-mount.mjs",
+    "ci": "npm run validate && npm run mount"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh": "0.1.1-rc.2",
+    "yaml": "^2.6.0"
+  }
+}
