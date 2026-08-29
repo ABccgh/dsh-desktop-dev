@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>桌面开发团队 · dsh-desktop-dev</title>
+<style>
+  :root { --bg:#0f1115; --card:#171a21; --line:#2a2f3a; --text:#e6e8ec; --dim:#9aa3b2; --accent:#4f8cff; --ok:#2ea46e; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif; line-height:1.7; }
+  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 80px; }
+  header h1 { margin:0 0 6px; font-size:2rem; }
+  header p { margin:0 0 8px; color:var(--dim); }
+  .lang a { color:var(--accent); text-decoration:none; }
+  .lang a:hover { text-decoration:underline; }
+  .badges { margin:14px 0 26px; display:flex; flex-wrap:wrap; gap:8px; }
+  .badge { border:1px solid var(--line); border-radius:999px; padding:3px 12px; font-size:.85rem; color:var(--dim); }
+  section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px 24px; margin:18px 0; }
+  h2 { margin:0 0 12px; font-size:1.25rem; }
+  ul { margin:0; padding-left:20px; }
+  li { margin:6px 0; }
+  code { background:#0a0c10; border:1px solid var(--line); border-radius:6px; padding:1px 6px; font-family:Consolas,monospace; font-size:.92em; }
+  pre { background:#0a0c10; border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow-x:auto; }
+  pre code { border:none; padding:0; }
+  table { width:100%; border-collapse:collapse; font-size:.95rem; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--dim); font-weight:600; }
+  .ok { color:var(--ok); font-weight:600; }
+  footer { margin-top:36px; color:var(--dim); font-size:.9rem; }
+  footer a { color:var(--accent); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>桌面开发团队 <span style="font-weight:400;color:var(--dim)">· dsh-desktop-dev</span></h1>
+    <p>DeepSeek Harness 智能体预设 —— 专门用于 Windows 全栈桌面软件开发的虚拟团队 Lead</p>
+    <p class="lang">🌐 <a href="./en/">English</a> · 📦 <a href="https://github.com/ABccgh/dsh-desktop-dev">GitHub 仓库</a></p>
+    <div class="badges">
+      <span class="badge">dsh-plugin</span><span class="badge">agent-preset</span><span class="badge">desktop</span><span class="badge">windows</span><span class="badge">deepseek-harness</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>能力</h2>
+    <ul>
+      <li><strong>专业团队</strong>：架构师 / UI 工程师 / 核心工程师 / 测试工程师 / 发布工程师五个虚拟角色，通过 subagent / workflow / ralph 委派协作</li>
+      <li><strong>技术栈覆盖</strong>：Electron / Tauri + Web 前端（TypeScript、React、Vue）、.NET 原生（WPF、WinForms）、Qt / C++ 原生，以及打包、签名、MSIX/NSIS、自动更新、WinGet 发布</li>
+      <li><strong>思考优化</strong>：先勘察 → 规划 → 分解 → 自检验收的思考纪律；架构决策写入 ADR</li>
+      <li><strong>记忆优化</strong>：AGENTS.md / CLAUDE.md / MEMORY.md 自动加载（256KB 预算）、压缩策略调优、项目记忆四段式规范、跨会话召回</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>安装</h2>
+    <p>复制到 DSH 用户预设目录后，新建会话时选择「桌面开发团队」：</p>
+<pre><code>$dst = Join-Path ($env:DSH_HOME ?? (Join-Path $HOME '.dsh')) '.agent-presets\desktop-dev'
+New-Item -ItemType Directory -Path $dst -Force | Out-Null
+Copy-Item -Recurse -Force .\* $dst</code></pre>
+  </section>
+
+  <section>
+    <h2>内置技能</h2>
+    <table>
+      <tr><th>技能</th><th>内容</th></tr>
+      <tr><td><code>desktop-team-playbook</code></td><td>团队组建与委派协议（5 角色提示词模板）</td></tr>
+      <tr><td><code>desktop-stack-decisions</code></td><td>技术选型决策树与 ADR 规范</td></tr>
+      <tr><td><code>desktop-ui-ux</code></td><td>Windows UI/UX 验收清单</td></tr>
+      <tr><td><code>desktop-packaging-release</code></td><td>打包 / 签名 / 发布门禁</td></tr>
+      <tr><td><code>desktop-qa-verification</code></td><td>测试策略与发布前验收</td></tr>
+      <tr><td><code>desktop-editor-vscode</code></td><td>VS Code 环境约定与扩展推荐</td></tr>
+      <tr><td><code>project-memory</code></td><td>项目记忆维护规范</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>校验与 CI</h2>
+    <p>每次推送到 <code>main</code> 都会通过 GitHub Actions 自动运行两级校验：</p>
+    <ul>
+      <li><strong>结构校验</strong>：YAML 解析、行 id 唯一性、技能 frontmatter、包可解析性</li>
+      <li><strong>真实挂载校验</strong>：启动完整 DSH Harness（web profile），执行与新建会话完全一致的 <code>standingKeyFor('desktop-dev')</code> 挂载检查</li>
+    </ul>
+  </section>
+
+  <footer>
+    由 <a href="https://github.com/ABccgh/dsh-desktop-dev">ABccgh/dsh-desktop-dev</a> 托管 · 主题标签 dsh-plugin
+  </footer>
+</div>
+</body>
+</html>
