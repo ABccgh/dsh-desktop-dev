@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desktop Dev Team · dsh-desktop-dev</title>
+<style>
+  :root { --bg:#0f1115; --card:#171a21; --line:#2a2f3a; --text:#e6e8ec; --dim:#9aa3b2; --accent:#4f8cff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:"Segoe UI",system-ui,sans-serif; line-height:1.7; }
+  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 80px; }
+  header h1 { margin:0 0 6px; font-size:2rem; }
+  header p { margin:0 0 8px; color:var(--dim); }
+  .lang a { color:var(--accent); text-decoration:none; }
+  .lang a:hover { text-decoration:underline; }
+  .badges { margin:14px 0 26px; display:flex; flex-wrap:wrap; gap:8px; }
+  .badge { border:1px solid var(--line); border-radius:999px; padding:3px 12px; font-size:.85rem; color:var(--dim); }
+  section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px 24px; margin:18px 0; }
+  h2 { margin:0 0 12px; font-size:1.25rem; }
+  ul { margin:0; padding-left:20px; }
+  li { margin:6px 0; }
+  code { background:#0a0c10; border:1px solid var(--line); border-radius:6px; padding:1px 6px; font-family:Consolas,monospace; font-size:.92em; }
+  pre { background:#0a0c10; border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow-x:auto; }
+  pre code { border:none; padding:0; }
+  table { width:100%; border-collapse:collapse; font-size:.95rem; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--dim); font-weight:600; }
+  footer { margin-top:36px; color:var(--dim); font-size:.9rem; }
+  footer a { color:var(--accent); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Desktop Dev Team <span style="font-weight:400;color:var(--dim)">· dsh-desktop-dev</span></h1>
+    <p>A DeepSeek Harness agent preset — a virtual team lead specialized in Windows full-stack desktop software development.</p>
+    <p class="lang">🌐 <a href="../">简体中文</a> · 📦 <a href="https://github.com/ABccgh/dsh-desktop-dev">GitHub repository</a></p>
+    <div class="badges">
+      <span class="badge">dsh-plugin</span><span class="badge">agent-preset</span><span class="badge">desktop</span><span class="badge">windows</span><span class="badge">deepseek-harness</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Capabilities</h2>
+    <ul>
+      <li><strong>Professional team</strong>: five virtual roles (Architect / UI Engineer / Core Engineer / QA Engineer / Release Engineer) collaborating through subagent / workflow / ralph delegation</li>
+      <li><strong>Stack coverage</strong>: Electron / Tauri + web frontend (TypeScript, React, Vue), .NET native (WPF, WinForms), Qt / C++ native, plus packaging, code signing, MSIX/NSIS, auto-update, and WinGet publishing</li>
+      <li><strong>Thinking discipline</strong>: survey → plan → decompose → self-verify; architecture decisions recorded as ADRs</li>
+      <li><strong>Memory optimization</strong>: AGENTS.md / CLAUDE.md / MEMORY.md auto-loading (256KB budget), tuned compaction, four-section project memory, cross-session recall</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Install</h2>
+    <p>Copy the preset into the DSH user preset directory, then pick <strong>桌面开发团队</strong> when starting a new session:</p>
+<pre><code>$dst = Join-Path ($env:DSH_HOME ?? (Join-Path $HOME '.dsh')) '.agent-presets\desktop-dev'
+New-Item -ItemType Directory -Path $dst -Force | Out-Null
+Copy-Item -Recurse -Force .\* $dst</code></pre>
+  </section>
+
+  <section>
+    <h2>Bundled skills</h2>
+    <table>
+      <tr><th>Skill</th><th>Contents</th></tr>
+      <tr><td><code>desktop-team-playbook</code></td><td>Team formation &amp; delegation protocol (5 role prompt templates)</td></tr>
+      <tr><td><code>desktop-stack-decisions</code></td><td>Stack decision tree &amp; ADR conventions</td></tr>
+      <tr><td><code>desktop-ui-ux</code></td><td>Windows UI/UX acceptance checklist</td></tr>
+      <tr><td><code>desktop-packaging-release</code></td><td>Packaging / signing / release gate</td></tr>
+      <tr><td><code>desktop-qa-verification</code></td><td>Test strategy &amp; pre-release acceptance</td></tr>
+      <tr><td><code>desktop-editor-vscode</code></td><td>VS Code environment conventions &amp; extension guide</td></tr>
+      <tr><td><code>project-memory</code></td><td>Project memory maintenance conventions</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Validation &amp; CI</h2>
+    <p>Every push to <code>main</code> runs two validation tiers through GitHub Actions:</p>
+    <ul>
+      <li><strong>Structural validation</strong>: YAML parsing, unique row ids, skill frontmatter, package resolvability</li>
+      <li><strong>Real mount validation</strong>: boots the full DSH Harness (web profile) and runs <code>standingKeyFor('desktop-dev')</code> — the exact check a session start performs</li>
+    </ul>
+  </section>
+
+  <footer>
+    Hosted at <a href="https://github.com/ABccgh/dsh-desktop-dev">ABccgh/dsh-desktop-dev</a> · topic: dsh-plugin
+  </footer>
+</div>
+</body>
+</html>
