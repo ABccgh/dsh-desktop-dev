@@ -1,0 +1,44 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  structure:
+    name: 结构校验
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 安装依赖
+        run: npm install
+      - name: YAML / 行 / 技能结构校验
+        run: node scripts/validate.mjs
+
+  harness-mount:
+    name: 真实挂载校验（standingKeyFor）
+    runs-on: ubuntu-latest
+    needs: structure
+    env:
+      DSH_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 安装依赖（含完整 DSH 部署）
+        run: npm install
+      - name: 启动真实 Harness 并挂载校验预设
+        run: node scripts/harness-mount.mjs
