@@ -1,5 +1,7 @@
 # dsh-desktop-dev
 
+> [English](README.en.md)
+
 DeepSeek Harness 智能体预设 —— **桌面开发团队**：专门用于 Windows 全栈桌面软件开发的虚拟团队 Lead。
 
 ## 能力
@@ -34,4 +36,25 @@ skills/            随预设分发的技能
   desktop-qa-verification    测试策略与发布前验收
   desktop-editor-vscode      VS Code 环境约定与扩展推荐
   project-memory             项目记忆维护规范
+scripts/           校验脚本（结构校验 + 真实挂载校验）
+docs/              GitHub Pages 站点
 ```
+
+## 校验与 CI
+
+每次推送都会通过 GitHub Actions 跑两级校验：
+
+| 校验 | 内容 |
+| --- | --- |
+| `validate` | 结构校验：YAML 解析、行 id 唯一性、技能 frontmatter、包可解析性 |
+| `mount` | **真实挂载校验**：启动完整 DSH Harness（web profile），用 `agentPresets.standingKeyFor('desktop-dev')` 做与会话启动完全一致的挂载检查，四类挂载失败（包无法解析 / 配置非法 / 行未激活 / 根域服务泄漏）都会使 CI 失败 |
+
+本地复现：
+
+```powershell
+npm install
+npm run validate   # 结构校验
+npm run mount      # 真实挂载校验
+```
+
+文档站（GitHub Pages）：<https://abccgh.github.io/dsh-desktop-dev/>
