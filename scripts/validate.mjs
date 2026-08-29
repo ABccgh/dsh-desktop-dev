@@ -63,13 +63,16 @@ if (rows !== null) {
           check(!ids.has(row.id), `duplicate row id "${row.id}" at ${here}`)
           ids.add(row.id)
         }
-        if (row.disabled !== undefined) check(typeof row.disabled === 'boolean', `${here}: disabled must be a boolean`)
+        if (row.disabled !== undefined) check(typeof row.disabled === 'boolean' || typeof row.disabled === 'string', `${here}: disabled must be a boolean or a !!js expression string`)
         if (row.name === 'cordis:group') {
           check(row.group === true, `${here}: cordis:group rows must set group: true`)
           check(Array.isArray(row.config), `${here}: cordis:group must carry a config list`)
           if (Array.isArray(row.config)) walk(row.config, `${here}.config`)
         } else if (typeof row.name === 'string' && row.name.startsWith('@deepseek-ai/')) {
-          check(existsSync(join(root, 'node_modules', row.name, 'package.json')), `${here}: package ${row.name} is not installed (run npm install; unresolvable packages fail mount)`)
+          // Subpath imports (@scope/name/subpath) resolve against the package root.
+          const parts = row.name.split('/')
+          const pkgName = parts.length > 2 ? parts.slice(0, 2).join('/') : row.name
+          check(existsSync(join(root, 'node_modules', pkgName, 'package.json')), `${here}: package ${row.name} is not installed (run npm install; unresolvable packages fail mount)`)
         }
       })
     }
