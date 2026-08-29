@@ -21,7 +21,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+          cache: npm
       - name: 安装依赖
         run: npm install
       - name: YAML / 行 / 技能结构校验
@@ -37,7 +38,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+          cache: npm
       - name: 安装依赖（含完整 DSH 部署）
         run: npm install
       - name: 启动真实 Harness 并挂载校验预设
